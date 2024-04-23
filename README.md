@@ -21,7 +21,7 @@ user can delete their bookings
 ### `POST /auth/register-user`
 new user can register themselves
 ### `POST /auth/login`
-registered users can login into the aopplication
+registered users can login into the application
 ### `GET /users/all`🔐
 admin can view all the registered users 
 ### `DELETE /users/delete/{userId}`🔐
