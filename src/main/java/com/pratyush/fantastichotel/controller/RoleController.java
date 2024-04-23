@@ -21,12 +21,13 @@ import static org.springframework.http.HttpStatus.FOUND;
 public class RoleController {
     private final IRoleService roleService;
     @GetMapping("/all-roles")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<Role>> getAllRoles(){
         return new ResponseEntity<>(roleService.getRoles(), FOUND);
 
     }
     @PostMapping("/create-new-role")
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> createRole(@RequestBody Role theRole){
         try{
             roleService.createRole(theRole);
@@ -38,15 +39,18 @@ public class RoleController {
         }
     }
     @DeleteMapping("/delete/{roleId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteRole(@PathVariable("roleId") Long roleId){
 
         roleService.deleteRole(roleId);
     }
     @PostMapping("/remove-all-users-from-role/{roleId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Role removeAllUsersFromRole(@PathVariable("roleId") Long roleId){
         return roleService.removeAllUsersFromRole(roleId);
     }
     @PostMapping("/remove-user-from-role")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public User removeUserFromRole(
             @RequestParam("userId") Long userId ,
             @RequestParam("roleId") Long roleId){
@@ -55,6 +59,7 @@ public class RoleController {
 
     }
     @PostMapping("/assign-user-to-role")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public User assignUserToRole(
             @RequestParam("userId") Long userId ,
             @RequestParam("roleId") Long roleId){
